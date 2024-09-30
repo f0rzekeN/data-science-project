@@ -1,0 +1,120 @@
+# 10235501439 肖岂源 数据科学导论第三次作业
+
+复习题3
+算法的时间复杂度是一个函数，它定性描述该算法的运行时间；空间复杂度是对一个算法在运行过程中临时占用存储空间大小的量度。
+
+复习题4
+算法是一系列解决问题精准而明确的指令。作用：作为解决问题的计算方法，能够提高效率，简化任务。
+
+复习题5
+1.时间复杂度分析；2.空间复杂度分析；3.实验测试；4.性能分析。
+
+复习题6
+一个算法的复杂度包括时间复杂度和空间复杂度；时间复杂度和空间复杂度越低则算法整体复杂度越低。
+
+复习题7
+算法的5个基本属性包括有穷性，可行性，确定性，输入以及输出。
+
+践习题1
+```
+def isprime(n):
+    cnt=0
+    for i in range(2,n,1):
+        if n%i==0:cnt+=1
+    if cnt==0:return True
+    else:return False
+a=int(input())
+if(isprime(a)):print(str(a)+" is a prime")
+else:print(str(a)+" is not a prime")
+```
+
+践习题6
+```
+import time
+def selectionsort(a,n):
+    minimum=-2147483647
+    for i in range(0,n):
+        minimum=a[i]
+        for j in range(i+1,n):
+            if a[j]<a[i]:
+                tmp=a[j]
+                a[j]=a[i]
+                a[i]=tmp
+n=int(input("input the length of array:"))
+print("please input the array:")
+a=[]
+for i in range(0,n):
+    num=int(input())
+    a.append(num)
+start_time=time.time()
+selectionsort(a,n)
+print(a)
+end_time=time.time()
+print("running time:"+str(end_time-start_time))
+```
+
+践习题7
+```
+def hanoi(n,a,b,c):
+    if n>0:
+        hanoi(n-1,a,c,b)
+        print(f"move disk {n} from {a} to {b}")
+        hanoi(n-1,c,b,a)
+n=int(input())
+a="A"
+b="B"
+c="C"
+hanoi(n,a,b,c)
+```
+改进方法：如果用递归写容易爆，可以用栈模拟递归的过程
+
+践习题8
+```
+class TreeNode:
+    def __init__(self, key):
+        self.left = None
+        self.right = None
+        self.val = key
+class BinarySearchTree:
+    def __init__(self):
+        self.root = None
+    def insert(self, key):
+        if self.root is None:
+            self.root = TreeNode(key)
+        else:
+            self._insert(self.root, key)
+    def _insert(self, node, key):
+        if key < node.val:
+            if node.left is None:
+                node.left = TreeNode(key)
+            else:
+                self._insert(node.left, key)
+        else:
+            if node.right is None:
+                node.right = TreeNode(key)
+            else:
+                self._insert(node.right, key)
+    def inorder(self):
+        res = []
+        self._inorder(self.root, res)
+        return res
+    def _inorder(self, node, res):
+        if node:
+            self._inorder(node.left, res)
+            res.append(node.val)
+            self._inorder(node.right, res)
+if __name__ == "__main__":  
+    bst = BinarySearchTree()
+    data = list()
+    n = int(input())
+    for i in range(n):
+        num = int(input())
+        data.append(num)
+    ##data = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]  
+    for item in data:  
+        bst.insert(item)  
+  
+    sorted_data = bst.inorder()  
+    print(sorted_data)
+
+```
